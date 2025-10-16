@@ -126,16 +126,16 @@ int main()
       // object skips over the animals where value < min.
       //
       
-      cout << "TODO" << endl;
+     // cout << "TODO" << endl;
       
-      //auto iter = animals.begin(min);
-      //while (iter != animals.end()) {
+      auto iter = animals.begin(min);
+      while (iter != animals.end()) {
       //  
-      //   cout << "(" << iter->first << "," << iter->second << ") ";
+         cout << "(" << iter->first << "," << iter->second << ") ";
       //   
-      //   ++iter;
-      //}
-      //cout << endl;
+         ++iter;
+      }
+      cout << endl;
       
     }
     else if (type == "-") {  // delete:
@@ -161,7 +161,7 @@ int main()
 
       //std::cout << "I own " << animals[type] << " " << type << std::endl;
       auto iter = animals.find(type);
-      
+
       if (iter == animals.end()) {
         cout << "I don't own any " << type << endl;
       }

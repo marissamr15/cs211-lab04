@@ -10,7 +10,7 @@
   * For simplicity, we implement map using a linked-list,
   * not a balanced search tree.
   * 
-  * @note << YOUR NAME? >>
+  * @note << Marissa Rocha Rangel >>
   *
   * @note Initial template by Prof. Joe Hummel
   * @note Northwestern University
@@ -64,6 +64,28 @@ public:
       NODE* temp = cur;
       cur = cur->Next;
       delete temp;
+    }
+  }
+
+  //
+  //copy constructor:
+  //
+  map(const map& other)
+    : Root(nullptr), Size(0)
+  {
+    // make copy of other LL, with the nodes in the SAME ORDER as the other list.
+    NODE* tail = nullptr;
+    for (iterator it = other.begin(); it != other.end(); ++it) {
+      std::pair<KeyT, ValueT> kv = *it;
+      NODE* newNode = new NODE(kv.first, kv.second);
+      if (this->Root == nullptr) {
+        this->Root = newNode;
+        tail = newNode;
+      } else {
+        tail->Next = newNode;
+        tail = newNode;
+      }
+      this->Size++;
     }
   }
 
@@ -185,6 +207,7 @@ private:
   class iterator {
   private:
     NODE* Ptr;
+    int MinValue;
 
   public:
     //
@@ -192,7 +215,18 @@ private:
     //
     iterator(NODE* ptr)
       : Ptr(ptr)
+      , MinValue(0)
     { }
+
+    // constructor with min value
+    iterator(NODE* ptr, int minvalue)
+      : Ptr(ptr)
+      , MinValue(minvalue)
+    { 
+      while(this->Ptr != nullptr && this->Ptr->KV_pair.second < MinValue) {
+        this->Ptr = this->Ptr->Next;
+      }
+    }
 
     //
     // are two iterators == ?
@@ -229,6 +263,11 @@ private:
         // advance to the next node!
         //
         this->Ptr = this->Ptr->Next;
+
+        while (this->Ptr != nullptr && this->Ptr->KV_pair.second < MinValue) {
+          this->Ptr = this->Ptr->Next;
+        }
+
       }
     }
 
@@ -277,6 +316,15 @@ public:
   iterator begin()
   {
     return iterator(this->Root);
+  }
+
+  //begin(min):
+  //return an iterator to the first node in the list with value >= minvalue
+
+  iterator begin(int minvalue)
+  {
+    return iterator(this->Root, minvalue);
+      
   }
 
   //
