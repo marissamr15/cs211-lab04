@@ -55,6 +55,19 @@ public:
   { }
 
   //
+  // destructor:
+  //
+  ~map()
+  {
+    NODE* cur = this->Root;
+    while(cur != nullptr){
+      NODE* temp = cur;
+      cur = cur->Next;
+      delete temp;
+    }
+  }
+
+  //
   // size:
   //
   size_t size() {
@@ -142,8 +155,16 @@ public:
       //
 
       // TODO:
+      if (prev == nullptr) { // means we r at root, so make next one root
+        this->Root = cur->Next;
+      }
+      else {
+        prev->Next = cur->Next;
+      }
+      delete cur;
+      this->Size--;
 
-      return 0;  // change this to 1 when you have it working
+      return 1;  // change this to 1 when you have it working
     }
   }
 

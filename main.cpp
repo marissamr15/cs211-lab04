@@ -17,8 +17,8 @@
 #include <string>
 #include <cctype>
 
-#include <map>
-//#include "mapll.h"
+// #include <map>
+#include "mapll.h"
 
 using std::string;
 using std::cout;
@@ -52,7 +52,7 @@ bool is_int(string s)
   * @param animals is the map to print
   * @return nothing
   */
-void printall(std::map<string, int>& animals)
+void printall(map<string, int>& animals)
 {
   //
   // NOTE: we are using foreach to loop through map. Requires
@@ -75,7 +75,8 @@ void printall(std::map<string, int>& animals)
   */
 int main()
 {
-  std::map<string, int> animals;
+  int count = 0;
+  map<string, int> animals;
 
   //
   // insert some animals to get started:
@@ -94,6 +95,7 @@ int main()
   // input commands and animals from the user:
   //
   while (true) {
+    count = count + 1;
 
     string type;
 
@@ -157,13 +159,22 @@ int main()
     }
     else { // search for animal, output how many I own (if any):
 
-      std::cout << "I own " << animals[type] << " " << type << std::endl;
+      //std::cout << "I own " << animals[type] << " " << type << std::endl;
+      auto iter = animals.find(type);
+      
+      if (iter == animals.end()) {
+        cout << "I don't own any " << type << endl;
+      }
+      else {
+        cout << "I own " << iter->second << " " << type << endl;
+      }
+       
     
-    }
+    } 
 
     cout << endl;
 
   }//while
-
+  cout << "Count: " << count << endl;
   return 0;
 }
