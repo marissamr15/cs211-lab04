@@ -52,7 +52,7 @@ bool is_int(string s)
   * @param animals is the map to print
   * @return nothing
   */
-void printall(map<string, int>& animals)
+void printall(map<string, int> animals)
 {
   //
   // NOTE: we are using foreach to loop through map. Requires
@@ -141,6 +141,7 @@ int main()
     else if (type == "-") {  // delete:
 
       cin >> type;
+
 
       int result = animals.erase(type);
 

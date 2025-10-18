@@ -74,18 +74,18 @@ public:
     : Root(nullptr), Size(0)
   {
     // make copy of other LL, with the nodes in the SAME ORDER as the other list.
-    NODE* tail = nullptr;
-    for (iterator it = other.begin(); it != other.end(); ++it) {
-      std::pair<KeyT, ValueT> kv = *it;
-      NODE* newNode = new NODE(kv.first, kv.second);
-      if (this->Root == nullptr) {
+    NODE* cur = other.Root;
+    NODE* prev = nullptr;
+    while (cur != nullptr) {
+      NODE* newNode = new NODE(cur->KV_pair.first, cur->KV_pair.second); //use current node to make new node
+      if (prev == nullptr) { /// first node
         this->Root = newNode;
-        tail = newNode;
-      } else {
-        tail->Next = newNode;
-        tail = newNode;
       }
-      this->Size++;
+      else {
+        prev->Next = newNode;
+      }
+      prev = newNode;
+      cur = cur->Next;
     }
   }
 
